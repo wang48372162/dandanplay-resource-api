@@ -1,7 +1,7 @@
 {
-  "name": "dandanplay-service-api",
+  "name": "dandanplay-resource-api",
   "version": "1.0.0",
-  "description": "The DanDanPlay Service API Server",
+  "description": "The DanDanPlay Resource API Server",
   "author": "wang48372162",
   "license": "MIT",
   "scripts": {

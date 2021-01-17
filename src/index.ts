@@ -43,6 +43,6 @@ const app: express.Application = express()
   })
 
   app.listen(port, () => {
-    console.log(`DanDanPlay Service API listening at http://localhost:${port}`)
+    console.log(`DanDanPlay Resource API listening at http://localhost:${port}`)
   })
 })()
