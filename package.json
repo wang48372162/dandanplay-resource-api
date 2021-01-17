@@ -1,0 +1,22 @@
+{
+  "name": "dandanplay-service-api",
+  "version": "1.0.0",
+  "description": "The DanDanPlay Service API Server",
+  "author": "wang48372162",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
+    "dayjs": "^1.10.3",
+    "express": "^4.17.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^14.14.21",
+    "ts-node": "^9.1.1",
+    "typescript": "^3.7.5"
+  }
+}
