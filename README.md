@@ -24,6 +24,6 @@ npm run start
 
 ## 參考資料
 
-* [原版 Python API 代碼](https://pastebin.ubuntu.com/p/mGP7JRpBtd/)
+* [Python 實現 API 代碼](https://pastebin.ubuntu.com/p/mGP7JRpBtd/)
 * [弹弹play搜索服自行搭建方法](https://jump2.bdimg.com/p/7192130039)
 * [弹弹play资源搜索节点API规范](https://github.com/kaedei/dandanplay-libraryindex/blob/master/api/ResourceService.md)
