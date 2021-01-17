@@ -2,6 +2,10 @@
 
 Node.js 版 DanDanPlay 資源查詢 API server
 
+## 支援資料來源
+
+* [動漫花園](https://share.dmhy.org/)
+
 ## 使用
 
 安裝依賴套件：
