@@ -4,6 +4,10 @@
   "description": "The DanDanPlay Resource API Server",
   "author": "wang48372162",
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/wang48372162/dandanplay-resource-api.git"
+  },
   "bin": {
     "dandanplay-resource-api": "./bin/dandanplay-resource-api.js"
   },
