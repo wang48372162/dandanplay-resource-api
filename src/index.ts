@@ -1,48 +1,18 @@
-import express from 'express'
+import yargs from 'yargs'
+import { api } from './Api'
 import { port } from './Config'
-import ProviderFactory from './ProviderFactory'
 
-const app: express.Application = express()
-
-!(async function () {
-  const Provider = await ProviderFactory.make()
-
-  app.get('/', (req, res) => {
-    res.json({ Hello: 'World' })
-  })
-
-  app.get('/subgroup', async (req, res) => {
-    res.json({
-      Subgroups: await Provider.getSubgroup()
+export function run(processArgv: string[]) {
+  const argv = yargs(processArgv.slice(2))
+    .option('port', {
+      alias: 'p',
+      default: port,
+      describe: 'set the server listening port number',
+      type: 'number'
     })
-  })
+    .help()
+    .alias('h', 'help')
+    .argv
 
-  app.get('/type', async (req, res) => {
-    res.json({
-      Types: await Provider.getTypes()
-    })
-  })
-
-  app.get('/list', async (req, res) => {
-    if (typeof req.query.keyword !== 'string') {
-      res.sendStatus(404)
-      return
-    }
-
-    const provider = Provider.withList({
-      keyword: req.query.keyword,
-      subgroup: req.query.subgroup as string | undefined,
-      type: req.query.type as string | undefined,
-      r: req.query.r as string | undefined
-    })
-
-    res.json({
-      HasMore: await provider.getHasMore(),
-      Resources: await provider.getResources()
-    })
-  })
-
-  app.listen(port, () => {
-    console.log(`DanDanPlay Resource API listening at http://localhost:${port}`)
-  })
-})()
+  api(argv.port)
+}

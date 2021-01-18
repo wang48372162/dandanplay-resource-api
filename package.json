@@ -1,21 +1,31 @@
 {
   "name": "dandanplay-resource-api",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "The DanDanPlay Resource API Server",
   "author": "wang48372162",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wang48372162/dandanplay-resource-api.git"
+  },
+  "bin": {
+    "dandanplay-resource-api": "./bin/dandanplay-resource-api.js"
+  },
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "build": "rimraf dist && tsc"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.10.3",
-    "express": "^4.17.0"
+    "express": "^4.17.0",
+    "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.2",
     "@types/node": "^14.14.21",
+    "@types/yargs": "^15.0.12",
+    "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^3.7.5"
   }

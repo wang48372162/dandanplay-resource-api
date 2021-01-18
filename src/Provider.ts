@@ -3,7 +3,7 @@ export interface Provider {
   typeAndSubgroupUrl: () => string
   listUrl: (keyword: string, type: string, subgroup: string) => string
 
-  getSubgroup(): Promise<Subgroup[]>
+  getSubgroups(): Promise<Subgroup[]>
   getTypes(): Promise<ResourceType[]>
   getResources(): Promise<Resource[]>
   getHasMore(): Promise<boolean>

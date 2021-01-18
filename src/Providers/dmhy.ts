@@ -11,7 +11,7 @@ export default class dmhy implements Provider {
   protected unknownSubgroupId: number = -1
   protected unknownSubgroupName: string = '未知字幕组'
 
-  async getSubgroup(): Promise<Subgroup[]> {
+  async getSubgroups(): Promise<Subgroup[]> {
     const $ = await cheerioHttp(this.typeAndSubgroupUrl())
 
     return $('select#AdvSearchTeam option').map((i, el) => ({
