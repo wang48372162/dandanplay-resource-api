@@ -32,7 +32,7 @@ class dmhy extends Provider {
    * }[]>} Subgroups
    */
   async getSubgroups() {
-    const $ = await cheerioHttp(this.typeAndSubgroupUrl())
+    const $ = await cheerioHttp(this.typeAndSubgroupUrl)
 
     return $('select#AdvSearchTeam option').map((i, el) => ({
       Id: $(el).val(),
@@ -47,7 +47,7 @@ class dmhy extends Provider {
    * }[]>} Types
    */
   async getTypes() {
-    const $ = await cheerioHttp(this.typeAndSubgroupUrl())
+    const $ = await cheerioHttp(this.typeAndSubgroupUrl)
 
     return $('select#AdvSearchSort option').map((i, el) => ({
       Id: $(el).val(),

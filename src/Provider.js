@@ -11,9 +11,9 @@ class Provider {
   baseUrl
 
   /**
-   * @type {string}
+   * @returns {string}
    */
-  typeAndSubgroupUrl
+  get typeAndSubgroupUrl() {}
 
   /**
    * @param {string} keyword
@@ -21,9 +21,7 @@ class Provider {
    * @param {string} subgroup
    * @returns {string} list URL
    */
-  listUrl(keyword, type, subgroup) {
-    //
-  }
+  listUrl(keyword, type, subgroup) {}
 
   /**
    * @returns {Promise<{
@@ -31,9 +29,7 @@ class Provider {
    *   Name: string
    * }>[]} Subgroups
    */
-  async getSubgroups() {
-    //
-  }
+  async getSubgroups() {}
 
   /**
    * @returns {Promise<{
@@ -41,9 +37,7 @@ class Provider {
    *   Name: string
    * }>[]} Types
    */
-  async getTypes() {
-    //
-  }
+  async getTypes() {}
 
   /**
    * @returns {Promise<{
@@ -58,16 +52,12 @@ class Provider {
    *   PublishDate: string
    * }[]>} Resources
    */
-  async getResources() {
-    //
-  }
+  async getResources() {}
 
   /**
    * @returns {Promise<boolean>} Has more
    */
-  async getHasMore() {
-    //
-  }
+  async getHasMore() {}
 
   /**
    * @param {{
@@ -78,9 +68,7 @@ class Provider {
     * }} argus
     * @returns {this}
     */
-  withList(argus) {
-    //
-  }
+  withList(argus) {}
 }
 
 module.exports = Provider
