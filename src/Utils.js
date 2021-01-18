@@ -1,17 +1,23 @@
-import axios from 'axios'
-import cheerio from 'cheerio'
-import dayjs from './Dayjs'
+const axios = require('axios')
+const cheerio = require('cheerio')
+const dayjs = require('./Dayjs')
 
-const responseCache: Array<{ url: string, html: string }> = []
+/**
+ * @type {{ url: string, html: string }[]}
+ */
+const responseCache = []
 
-export async function cheerioHttp(url: string) {
-  let html: string = ''
+/**
+ * @param {string} url
+ */
+async function cheerioHttp(url) {
+  let html = ''
   const cacheItem = responseCache.find(item => item.url === url)
 
   if (typeof cacheItem !== 'undefined') {
     html = cacheItem.html
   } else {
-    const { data }: { data: string } = await axios.get(url)
+    const { data } = await axios.get(url)
     html = data
     responseCache.push({ url, html })
   }
@@ -19,7 +25,10 @@ export async function cheerioHttp(url: string) {
   return cheerio.load(html)
 }
 
-export function queryPropToString(value?: number | string): string {
+/**
+ * @param {(number|string)} [value]
+ */
+function queryPropToString(value) {
   if (typeof value === 'undefined') {
     value = ''
   } else if (typeof value === 'number') {
@@ -29,7 +38,10 @@ export function queryPropToString(value?: number | string): string {
   return value
 }
 
-export function parseHumanDate(date: string) {
+/**
+ * @param {string} date
+ */
+function parseHumanDate(date) {
   if (date.indexOf('今天') === 0) {
     return dayjs(date, 'HH:mm', 'zh-cn')
   } else if (date.indexOf('昨天') === 0) {
@@ -37,4 +49,10 @@ export function parseHumanDate(date: string) {
   }
 
   return dayjs(date)
+}
+
+module.exports = {
+  cheerioHttp,
+  queryPropToString,
+  parseHumanDate
 }

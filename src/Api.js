@@ -1,10 +1,9 @@
-import express from 'express'
-import { port } from './Config'
-import ProviderFactory from './ProviderFactory'
+const express = require('express')
+const { port: defaultPort } = require('./Config')
+const ProviderFactory = require('./ProviderFactory')
 
-const app: express.Application = express()
-
-!(async function () {
+async function api(port = defaultPort) {
+  const app = express()
   const Provider = await ProviderFactory.make()
 
   app.get('/', (req, res) => {
@@ -13,7 +12,7 @@ const app: express.Application = express()
 
   app.get('/subgroup', async (req, res) => {
     res.json({
-      Subgroups: await Provider.getSubgroup()
+      Subgroups: await Provider.getSubgroups()
     })
   })
 
@@ -31,9 +30,9 @@ const app: express.Application = express()
 
     const provider = Provider.withList({
       keyword: req.query.keyword,
-      subgroup: req.query.subgroup as string | undefined,
-      type: req.query.type as string | undefined,
-      r: req.query.r as string | undefined
+      subgroup: req.query.subgroup,
+      type: req.query.type,
+      r: req.query.r
     })
 
     res.json({
@@ -45,4 +44,6 @@ const app: express.Application = express()
   app.listen(port, () => {
     console.log(`DanDanPlay Resource API listening at http://localhost:${port}`)
   })
-})()
+}
+
+module.exports = api
