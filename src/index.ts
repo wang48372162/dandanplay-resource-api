@@ -29,12 +29,12 @@ const app: express.Application = express()
       return
     }
 
-    const provider = Provider.withList(
-      req.query.keyword,
-      req.query.subgroup as string | undefined,
-      req.query.type as string | undefined,
-      req.query.r as string | undefined
-    )
+    const provider = Provider.withList({
+      keyword: req.query.keyword,
+      subgroup: req.query.subgroup as string | undefined,
+      type: req.query.type as string | undefined,
+      r: req.query.r as string | undefined
+    })
 
     res.json({
       HasMore: await provider.getHasMore(),

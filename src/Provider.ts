@@ -7,7 +7,12 @@ export interface Provider {
   getTypes(): Promise<ResourceType[]>
   getResources(): Promise<Resource[]>
   getHasMore(): Promise<boolean>
-  withList(keyword: string, subgroup?: number | string, type?: number | string, r?: number | string): Provider
+  withList(args: {
+    keyword: string,
+    subgroup?: number | string,
+    type?: number | string,
+    r?: number | string
+  }): Provider
 }
 
 export type Subgroup = {
