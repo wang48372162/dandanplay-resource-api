@@ -1,6 +1,7 @@
 import axios from 'axios'
 import cheerio from 'cheerio'
 import dayjs from './Dayjs'
+import { axiosConfig } from './Config'
 
 const responseCache: Array<{ url: string, html: string }> = []
 
@@ -11,7 +12,7 @@ export async function cheerioHttp(url: string) {
   if (typeof cacheItem !== 'undefined') {
     html = cacheItem.html
   } else {
-    const { data }: { data: string } = await axios.get(url)
+    const { data }: { data: string } = await axios.get(url, axiosConfig)
     html = data
     responseCache.push({ url, html })
   }
