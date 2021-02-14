@@ -27,7 +27,7 @@ dandanplay-resource-api
 
 ### Provider
 
-指定資料來源 (預設為動漫花園)：
+指定其他資料來源 (預設為動漫花園)：
 
 ```bash
 dandanplay-resource-api --provider=dmhy
