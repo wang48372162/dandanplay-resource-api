@@ -1,7 +1,13 @@
-import { Provider, Subgroup, ResourceType, Resource } from '../Provider'
+import {
+  Provider as ProviderContract,
+  Subgroup,
+  ResourceType,
+  Resource
+} from '../Contracts/Provider'
+import Provider from '../Provider'
 import { cheerioHttp, queryPropToString, parseHumanDate } from '../Utils'
 
-export default class dmhy implements Provider {
+export default class dmhy extends Provider implements ProviderContract {
   public baseUrl = 'https://share.dmhy.org'
   public typeAndSubgroupUrl = () => `${this.baseUrl}/topics/advanced-search?team_id=0&sort_id=0&orderby=`
   public listUrl = (keyword: string, type: string, subgroup: string) => `${this.baseUrl}/topics/list/page/1?keyword=${keyword}&sort_id=${type}&team_id=${subgroup}&order=date-desc`
@@ -12,7 +18,7 @@ export default class dmhy implements Provider {
   protected unknownSubgroupName: string = '未知字幕组'
 
   async getSubgroups(): Promise<Subgroup[]> {
-    const $ = await cheerioHttp(this.typeAndSubgroupUrl())
+    const $ = await cheerioHttp(this.typeAndSubgroupUrl(), this.axiosConfig)
 
     return $('select#AdvSearchTeam option').map((i, el) => ({
       Id: $(el).val(),
@@ -21,7 +27,7 @@ export default class dmhy implements Provider {
   }
 
   async getTypes(): Promise<ResourceType[]> {
-    const $ = await cheerioHttp(this.typeAndSubgroupUrl())
+    const $ = await cheerioHttp(this.typeAndSubgroupUrl(), this.axiosConfig)
 
     return $('select#AdvSearchSort option').map((i, el) => ({
       Id: $(el).val(),
@@ -30,7 +36,7 @@ export default class dmhy implements Provider {
   }
 
   async getResources(): Promise<Resource[]> {
-    const $ = await cheerioHttp(this.fullListUrl())
+    const $ = await cheerioHttp(this.fullListUrl(), this.axiosConfig)
 
     return $('table#topic_list tbody tr').map((i, tr) => {
       const td0 = $(tr).find('td')[0]
@@ -64,7 +70,7 @@ export default class dmhy implements Provider {
   }
 
   async getHasMore(): Promise<boolean> {
-    const $ = await cheerioHttp(this.fullListUrl())
+    const $ = await cheerioHttp(this.fullListUrl(), this.axiosConfig)
 
     return $(`div.nav_title > a:contains('下一頁')`).length > 0
   }
@@ -74,7 +80,7 @@ export default class dmhy implements Provider {
     subgroup?: number | string,
     type?: number | string,
     r?: number | string
-  }): Provider {
+  }): ProviderContract {
     this.fullListUrlProp = this.listUrl(
       encodeURI(keyword), queryPropToString(type), queryPropToString(subgroup)
     )

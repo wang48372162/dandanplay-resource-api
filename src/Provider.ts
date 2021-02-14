@@ -1,38 +1,23 @@
-export interface Provider {
-  baseUrl: string
-  typeAndSubgroupUrl: () => string
-  listUrl: (keyword: string, type: string, subgroup: string) => string
+import { AxiosRequestConfig, AxiosProxyConfig } from 'axios'
 
-  getSubgroups(): Promise<Subgroup[]>
-  getTypes(): Promise<ResourceType[]>
-  getResources(): Promise<Resource[]>
-  getHasMore(): Promise<boolean>
-  withList(args: {
-    keyword: string,
-    subgroup?: number | string,
-    type?: number | string,
-    r?: number | string
-  }): Provider
-}
+export default abstract class Provider {
+  protected axiosConfig?: AxiosRequestConfig
 
-export type Subgroup = {
-  Id: number
-  Name: string
-}
+  setAxiosConfig(axiosConfig?: AxiosRequestConfig) {
+    this.axiosConfig = axiosConfig
 
-export type ResourceType = {
-  Id: number
-  Name: string
-}
+    return this
+  }
 
-export type Resource = {
-  Title: string
-  TypeId: number
-  TypeName: string
-  SubgroupId: number
-  SubgroupName: string
-  Magnet: string
-  PageUrl: string
-  FileSize: string
-  PublishDate: string
+  setProxy(proxyConfig?: AxiosProxyConfig) {
+    if (typeof this.axiosConfig !== 'object') {
+      this.axiosConfig = {}
+    }
+
+    this.axiosConfig.proxy = Object.assign(
+      {}, this.axiosConfig.proxy, proxyConfig
+    )
+
+    return this
+  }
 }

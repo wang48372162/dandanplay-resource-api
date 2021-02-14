@@ -25,10 +25,44 @@ dandanplay-resource-api
 
 ## 選項
 
+### Provider
+
+指定資料來源 (預設為動漫花園)：
+
+```bash
+dandanplay-resource-api --provider=dmhy
+```
+
+支援資料來源：
+
+* dmhy：[動漫花園](https://share.dmhy.org/)
+
+### Port
+
 監聽在 `3000` port：
 
 ```bash
 dandanplay-resource-api --port=3000
+```
+
+### Proxy
+
+指定 proxy host：
+
+```bash
+dandanplay-resource-api --proxy=localhost:8585
+```
+
+登入 proxy 帳號密碼：
+
+```bash
+dandanplay-resource-api --proxy=localhost:8585 --proxy-username=your_user --proxy-password=your_password
+```
+
+使用 HTTPS：
+
+```bash
+dandanplay-resource-api --proxy=localhost:8585 --proxy-https
 ```
 
 ## 開發
