@@ -1,6 +1,6 @@
 # DanDanPlay Resource API for Node.js
 
-Node.js 版 DanDanPlay 資源查詢 API server
+Node.js 版 彈彈play 資源查詢 API server
 
 ## 支援資料來源
 
@@ -26,7 +26,7 @@ dandanplay-resource-api
 > npx dandanplay-resource-api
 > ```
 
-然後開啟 [弹弹play](http://www.dandanplay.com/) 设置中心 > 网络与更新，修改「API 端点」和「资源搜索节点」為 `http://localhost:8123`，即可使用資源搜索和自動下載功能了！
+然後開啟 彈彈play 设置中心 > 网络与更新，修改「API 端点」和「资源搜索节点」為 `http://localhost:8123`，即可使用資源搜索和自動下載功能了！
 
 ## 選項
 
