@@ -4,7 +4,7 @@ Node.js 版 DanDanPlay 資源查詢 API server
 
 ## 支援資料來源
 
-* [動漫花園](https://share.dmhy.org/)
+* 動漫花園
 
 ## 使用
 
@@ -27,15 +27,11 @@ dandanplay-resource-api
 
 ### Provider
 
-指定其他資料來源 (預設為動漫花園)：
+指定其他資料來源 (目前只支援動漫花園)：
 
 ```bash
 dandanplay-resource-api --provider=dmhy
 ```
-
-支援資料來源：
-
-* dmhy：[動漫花園](https://share.dmhy.org/)
 
 ### Port
 
