@@ -8,20 +8,25 @@ Node.js 版 DanDanPlay 資源查詢 API server
 
 ## 使用
 
-直接安裝並啟動 Server，預設為 `8123` port：
-
-```bash
-npx dandanplay-resource-api
-```
-
-或者安裝全局套件來啟動 Server：
+安裝全局套件來啟動 Server：
 
 ```bash
 npm install -g dandanplay-resource-api
+```
+
+啟動 Server，預設為 `8123` port：
+
+```bash
 dandanplay-resource-api
 ```
 
-開啟 [弹弹play](http://www.dandanplay.com/) 设置中心 > 网络与更新，修改「API 端点」和「资源搜索节点」為 `http://localhost:8123`，即可使用資源搜索和自動下載功能了！
+> 或者一次安裝直接啟動 Server：
+>
+> ```bash
+> npx dandanplay-resource-api
+> ```
+
+然後開啟 [弹弹play](http://www.dandanplay.com/) 设置中心 > 网络与更新，修改「API 端点」和「资源搜索节点」為 `http://localhost:8123`，即可使用資源搜索和自動下載功能了！
 
 ## 選項
 
