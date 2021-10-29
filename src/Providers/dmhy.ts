@@ -21,7 +21,7 @@ export default class dmhy extends Provider implements ProviderContract {
     const $ = await cheerioHttp(this.typeAndSubgroupUrl(), this.axiosConfig)
 
     return $('select#AdvSearchTeam option').map((i, el) => ({
-      Id: $(el).val(),
+      Id: parseInt($(el).val() as string),
       Name: $(el).text()
     })).get()
   }
@@ -30,7 +30,7 @@ export default class dmhy extends Provider implements ProviderContract {
     const $ = await cheerioHttp(this.typeAndSubgroupUrl(), this.axiosConfig)
 
     return $('select#AdvSearchSort option').map((i, el) => ({
-      Id: $(el).val(),
+      Id: parseInt($(el).val() as string),
       Name: $(el).text()
     })).get()
   }
@@ -61,7 +61,7 @@ export default class dmhy extends Provider implements ProviderContract {
         SubgroupName: td2_a_len === 2
           ? $(td2_a0).text().trim()
           : this.unknownSubgroupName,
-        Magnet: $(td3_a0).attr('href'),
+        Magnet: $(td3_a0).attr('href') as string,
         PageUrl: this.baseUrl + $(td2_a_last).attr('href'),
         FileSize: $(td4).text().trim(),
         PublishDate: parseHumanDate($(td0).find('span').text().trim()).format('YYYY-MM-DD HH:mm:ss')
