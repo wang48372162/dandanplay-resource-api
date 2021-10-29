@@ -68,10 +68,11 @@ dandanplay-resource-api --proxy=localhost:8585 --proxy-https
 
 ## 開發
 
-用 Git 下載專案到本地並安裝完依賴後，即可啟動 Server：
+用 git 下載專案到本地，安裝完依賴後和啟動 Server：
 
 ```bash
-npx ts-node dandanplay-resource-api
+npm install
+npm run dev
 ```
 
 編譯資產：

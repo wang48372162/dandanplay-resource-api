@@ -12,6 +12,7 @@
     "dandanplay-resource-api": "./bin/dandanplay-resource-api.js"
   },
   "scripts": {
+    "dev": "ts-node dandanplay-resource-api",
     "build": "rimraf dist && tsc"
   },
   "dependencies": {
