@@ -5,21 +5,25 @@ import { parseAxiosProxy } from './Utils'
 
 const app: express.Application = express()
 
-export async function api({
-  provider,
-  port,
-  proxy,
-  proxyUsername,
-  proxyPassword,
-  proxyHttps
-}: {
-  provider: string,
-  port: number,
-  proxy?: string,
-  proxyUsername?: string,
-  proxyPassword?: string,
+export interface ApiOptions {
+  provider: string
+  port: number
+  proxy?: string
+  proxyUsername?: string
+  proxyPassword?: string
   proxyHttps: boolean
-}) {
+}
+
+export async function api(options: ApiOptions) {
+  const {
+    provider,
+    port,
+    proxy,
+    proxyUsername,
+    proxyPassword,
+    proxyHttps,
+  } = options
+
   const Provider = await ProviderFactory.make(provider)
 
   Provider.setAxiosConfig(axiosConfig)

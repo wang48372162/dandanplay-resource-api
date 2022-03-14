@@ -4,7 +4,8 @@ Node.js 版 彈彈play 資源查詢 API server
 
 ## 支援資料來源
 
-* 動漫花園
+* `dmhy`：*動漫花園* - share.dmhy.org
+* `dmhyanoneko`：*動漫花園 anoneko* - dmhy.anoneko.com
 
 ## 使用
 
