@@ -47,14 +47,14 @@ export function parseAxiosProxy(
   return { host, port, auth, protocol }
 }
 
-export function queryPropToString(value?: number | string): string {
+export function encodeQueryProp(value?: number | string): string {
   if (typeof value === 'undefined') {
     value = ''
   } else if (typeof value === 'number') {
     value = value.toString()
   }
 
-  return value
+  return encodeURIComponent(value)
 }
 
 export function parseHumanDate(date: string) {

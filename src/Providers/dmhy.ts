@@ -5,7 +5,7 @@ import {
   Resource
 } from '../Contracts/Provider'
 import Provider from '../Provider'
-import { cheerioHttp, queryPropToString, parseHumanDate } from '../Utils'
+import { cheerioHttp, encodeQueryProp, parseHumanDate } from '../Utils'
 
 export default class dmhy extends Provider implements ProviderContract {
   public baseUrl = 'https://share.dmhy.org'
@@ -82,7 +82,7 @@ export default class dmhy extends Provider implements ProviderContract {
     r?: number | string
   }): ProviderContract {
     this.fullListUrlProp = this.listUrl(
-      encodeURI(keyword), queryPropToString(type), queryPropToString(subgroup)
+      encodeURIComponent(keyword), encodeQueryProp(type), encodeQueryProp(subgroup)
     )
 
     return this
