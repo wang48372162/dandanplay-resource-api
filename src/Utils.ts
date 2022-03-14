@@ -1,22 +1,19 @@
 import axios, { AxiosProxyConfig, AxiosRequestConfig } from 'axios'
-import cheerio from 'cheerio'
+import { load } from 'cheerio'
 import dayjs from './Dayjs'
 
-const responseCache: Array<{ url: string, html: string }> = []
-
 export async function cheerioHttp(url: string, axiosConfig?: AxiosRequestConfig) {
-  let html: string = ''
-  const cacheItem = responseCache.find(item => item.url === url)
+  let html = ''
 
-  if (typeof cacheItem !== 'undefined') {
-    html = cacheItem.html
-  } else {
-    const { data }: { data: string } = await axios.get(url, axiosConfig)
+  try {
+    const { data } = await axios.get<string>(url, axiosConfig)
     html = data
-    responseCache.push({ url, html })
+    console.log(`\nHTML content:\n${html}`)
+  } catch (error) {
+    console.error(error)
   }
 
-  return cheerio.load(html)
+  return load(html)
 }
 
 export function parseAxiosProxy(
