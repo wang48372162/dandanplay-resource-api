@@ -8,7 +8,6 @@ export async function cheerioHttp(url: string, axiosConfig?: AxiosRequestConfig)
   try {
     const { data } = await axios.get<string>(url, axiosConfig)
     html = data
-    console.log(`\nHTML content:\n${html}`)
   } catch (error) {
     console.error(error)
   }
