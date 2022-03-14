@@ -46,26 +46,6 @@ dandanplay-resource-api --provider=dmhy
 dandanplay-resource-api --port=3000
 ```
 
-### Proxy
-
-指定 proxy host：
-
-```bash
-dandanplay-resource-api --proxy=localhost:8585
-```
-
-登入 proxy 帳號密碼：
-
-```bash
-dandanplay-resource-api --proxy=localhost:8585 --proxy-username=your_user --proxy-password=your_password
-```
-
-使用 HTTPS：
-
-```bash
-dandanplay-resource-api --proxy=localhost:8585 --proxy-https
-```
-
 ## 開發
 
 用 git 下載專案到本地，安裝完依賴後和啟動 Server：
