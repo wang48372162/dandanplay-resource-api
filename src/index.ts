@@ -16,6 +16,12 @@ export function run(processArgv: string[]) {
       describe: 'set the server listening port number',
       type: 'number'
     })
+    .option('debug', {
+      alias: 'd',
+      default: false,
+      describe: 'print debug logs',
+      type: 'boolean'
+    })
     .option('proxy', {
       alias: 'x',
       describe: 'set proxy host, ex: "localhost:8585"',
@@ -41,6 +47,7 @@ export function run(processArgv: string[]) {
   api({
     provider: argv.provider,
     port: argv.port,
+    debug: argv.debug,
     proxy: argv.proxy,
     proxyUsername: argv.proxyUsername,
     proxyPassword: argv.proxyPassword,

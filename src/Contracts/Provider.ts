@@ -15,6 +15,7 @@ export interface Provider {
   }): Provider
 
   setAxiosConfig(axiosConfig?: AxiosRequestConfig): Provider
+  setDebug(debug: boolean): Provider
   setProxy(proxyConfig?: AxiosProxyConfig): Provider
 }
 

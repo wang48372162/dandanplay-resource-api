@@ -2,12 +2,26 @@ import axios, { AxiosProxyConfig, AxiosRequestConfig } from 'axios'
 import { load } from 'cheerio'
 import dayjs from './Dayjs'
 
-export async function cheerioHttp(url: string, axiosConfig?: AxiosRequestConfig) {
+interface CheerioHttpOptions {
+  axiosConfig?: AxiosRequestConfig
+  debug?: boolean
+}
+
+export async function cheerioHttp(url: string, options: CheerioHttpOptions = {}) {
+  const {
+    axiosConfig,
+    debug = false,
+  } = options
+
   let html = ''
 
   try {
     const { data } = await axios.get<string>(url, axiosConfig)
     html = data
+
+    if (debug) {
+      console.log(`\n[DanDanPlay Resource API]: HTML content:\n${html}`)
+    }
   } catch (error) {
     console.error(error)
   }

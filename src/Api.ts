@@ -8,6 +8,7 @@ const app: express.Application = express()
 export interface ApiOptions {
   provider: string
   port: number
+  debug: boolean
   proxy?: string
   proxyUsername?: string
   proxyPassword?: string
@@ -18,6 +19,7 @@ export async function api(options: ApiOptions) {
   const {
     provider,
     port,
+    debug,
     proxy,
     proxyUsername,
     proxyPassword,
@@ -27,6 +29,7 @@ export async function api(options: ApiOptions) {
   const Provider = await ProviderFactory.make(provider)
 
   Provider.setAxiosConfig(axiosConfig)
+  Provider.setDebug(debug)
   Provider.setProxy(parseAxiosProxy(
     proxy, proxyUsername, proxyPassword, proxyHttps
   ))

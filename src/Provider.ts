@@ -1,11 +1,16 @@
 import { AxiosRequestConfig, AxiosProxyConfig } from 'axios'
 
 export default abstract class Provider {
+  protected debug: boolean = false
   protected axiosConfig?: AxiosRequestConfig
 
   setAxiosConfig(axiosConfig?: AxiosRequestConfig) {
     this.axiosConfig = axiosConfig
+    return this
+  }
 
+  setDebug(debug: boolean) {
+    this.debug = debug
     return this
   }
 

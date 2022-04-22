@@ -18,7 +18,10 @@ export default class dmhy extends Provider implements ProviderContract {
   protected unknownSubgroupName: string = '未知字幕组'
 
   async getSubgroups(): Promise<Subgroup[]> {
-    const $ = await cheerioHttp(this.typeAndSubgroupUrl(), this.axiosConfig)
+    const $ = await cheerioHttp(this.typeAndSubgroupUrl(), {
+      axiosConfig: this.axiosConfig,
+      debug: this.debug,
+    })
 
     return $('select#AdvSearchTeam option').map((i, el) => ({
       Id: parseInt($(el).val() as string),
@@ -27,7 +30,10 @@ export default class dmhy extends Provider implements ProviderContract {
   }
 
   async getTypes(): Promise<ResourceType[]> {
-    const $ = await cheerioHttp(this.typeAndSubgroupUrl(), this.axiosConfig)
+    const $ = await cheerioHttp(this.typeAndSubgroupUrl(), {
+      axiosConfig: this.axiosConfig,
+      debug: this.debug,
+    })
 
     return $('select#AdvSearchSort option').map((i, el) => ({
       Id: parseInt($(el).val() as string),
@@ -36,7 +42,10 @@ export default class dmhy extends Provider implements ProviderContract {
   }
 
   async getResources(): Promise<Resource[]> {
-    const $ = await cheerioHttp(this.fullListUrl(), this.axiosConfig)
+    const $ = await cheerioHttp(this.fullListUrl(), {
+      axiosConfig: this.axiosConfig,
+      debug: this.debug,
+    })
 
     return $('table#topic_list tbody tr').map((i, tr) => {
       const td0 = $(tr).find('td')[0]
@@ -70,7 +79,10 @@ export default class dmhy extends Provider implements ProviderContract {
   }
 
   async getHasMore(): Promise<boolean> {
-    const $ = await cheerioHttp(this.fullListUrl(), this.axiosConfig)
+    const $ = await cheerioHttp(this.fullListUrl(), {
+      axiosConfig: this.axiosConfig,
+      debug: this.debug,
+    })
 
     return $(`div.nav_title > a:contains('下一頁')`).length > 0
   }
