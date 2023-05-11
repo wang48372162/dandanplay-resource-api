@@ -8,37 +8,37 @@ export async function run(processArgv: string[]) {
       alias: 'r',
       default: provider,
       describe: 'set provider',
-      type: 'string'
+      type: 'string',
     })
     .option('port', {
       alias: 'p',
       default: port,
       describe: 'set the server listening port number',
-      type: 'number'
+      type: 'number',
     })
     .option('debug', {
       alias: 'd',
       default: false,
       describe: 'print debug logs',
-      type: 'boolean'
+      type: 'boolean',
     })
     .option('proxy', {
       alias: 'x',
       describe: 'set proxy host, ex: "localhost:8585"',
-      type: 'string'
+      type: 'string',
     })
     .option('proxyUsername', {
       describe: 'set proxy authencation username',
-      type: 'string'
+      type: 'string',
     })
     .option('proxyPassword', {
       describe: 'set proxy authencation password',
-      type: 'string'
+      type: 'string',
     })
     .option('proxyHttps', {
       default: false,
       describe: 'set proxy prototal is HTTPS',
-      type: 'boolean'
+      type: 'boolean',
     })
     .help()
     .alias('h', 'help')
@@ -51,6 +51,6 @@ export async function run(processArgv: string[]) {
     proxy: argv.proxy,
     proxyUsername: argv.proxyUsername,
     proxyPassword: argv.proxyPassword,
-    proxyHttps: argv.proxyHttps
+    proxyHttps: argv.proxyHttps,
   })
 }

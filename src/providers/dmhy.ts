@@ -25,7 +25,7 @@ export default class dmhy extends Provider implements ProviderContract {
 
     return $('select#AdvSearchTeam option').map((i, el) => ({
       Id: parseInt($(el).val() as string),
-      Name: $(el).text()
+      Name: $(el).text(),
     })).get()
   }
 
@@ -37,7 +37,7 @@ export default class dmhy extends Provider implements ProviderContract {
 
     return $('select#AdvSearchSort option').map((i, el) => ({
       Id: parseInt($(el).val() as string),
-      Name: $(el).text()
+      Name: $(el).text(),
     })).get()
   }
 
@@ -73,7 +73,7 @@ export default class dmhy extends Provider implements ProviderContract {
         Magnet: $(td3_a0).attr('href') as string,
         PageUrl: this.baseUrl + $(td2_a_last).attr('href'),
         FileSize: $(td4).text().trim(),
-        PublishDate: parseHumanDate($(td0).find('span').text().trim()).format('YYYY-MM-DD HH:mm:ss')
+        PublishDate: parseHumanDate($(td0).find('span').text().trim()).format('YYYY-MM-DD HH:mm:ss'),
       }
     }).get()
   }
@@ -88,13 +88,15 @@ export default class dmhy extends Provider implements ProviderContract {
   }
 
   withList({ keyword, subgroup, type, r }: {
-    keyword: string,
-    subgroup?: number | string,
-    type?: number | string,
+    keyword: string
+    subgroup?: number | string
+    type?: number | string
     r?: number | string
   }): ProviderContract {
     this.fullListUrlProp = this.listUrl(
-      encodeURIComponent(keyword), encodeQueryProp(type), encodeQueryProp(subgroup)
+      encodeURIComponent(keyword),
+      encodeQueryProp(type),
+      encodeQueryProp(subgroup)
     )
 
     return this

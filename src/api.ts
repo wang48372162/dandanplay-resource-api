@@ -40,13 +40,13 @@ export function api(options: ApiOptions) {
 
   app.get('/subgroup', async (req, res) => {
     res.json({
-      Subgroups: await Provider.getSubgroups()
+      Subgroups: await Provider.getSubgroups(),
     })
   })
 
   app.get('/type', async (req, res) => {
     res.json({
-      Types: await Provider.getTypes()
+      Types: await Provider.getTypes(),
     })
   })
 
@@ -60,12 +60,12 @@ export function api(options: ApiOptions) {
       keyword: req.query.keyword,
       subgroup: req.query.subgroup as string | undefined,
       type: req.query.type as string | undefined,
-      r: req.query.r as string | undefined
+      r: req.query.r as string | undefined,
     })
 
     res.json({
       HasMore: await provider.getHasMore(),
-      Resources: await provider.getResources()
+      Resources: await provider.getResources(),
     })
   })
 

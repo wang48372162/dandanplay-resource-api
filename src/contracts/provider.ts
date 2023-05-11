@@ -8,9 +8,9 @@ export interface Provider {
   getResources(): Promise<Resource[]>
   getHasMore(): Promise<boolean>
   withList(args: {
-    keyword: string,
-    subgroup?: number | string,
-    type?: number | string,
+    keyword: string
+    subgroup?: number | string
+    type?: number | string
     r?: number | string
   }): Provider
 
