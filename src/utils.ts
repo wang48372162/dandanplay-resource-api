@@ -1,10 +1,15 @@
 import axios, { AxiosProxyConfig, AxiosRequestConfig } from 'axios'
 import { load } from 'cheerio'
+import c from 'picocolors'
 import dayjs from './dayjs'
 
 interface CheerioHttpOptions {
   axiosConfig?: AxiosRequestConfig
   debug?: boolean
+}
+
+export function print(...messages: any[]) {
+  console.log(c.green(`[${new Date().toLocaleString()}]`), ...messages.filter(v => v))
 }
 
 export async function cheerioHttp(url: string, options: CheerioHttpOptions = {}) {
@@ -19,9 +24,7 @@ export async function cheerioHttp(url: string, options: CheerioHttpOptions = {})
     const { data } = await axios.get<string>(url, axiosConfig)
     html = data
 
-    if (debug) {
-      console.log(`\n[DanDanPlay Resource API]: HTML content:\n${html}`)
-    }
+    if (debug) print(c.blue('HTML content:'), html)
   } catch (error) {
     console.error(error)
   }

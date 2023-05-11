@@ -1,7 +1,8 @@
 import express from 'express'
+import c from 'picocolors'
 import { axiosConfig } from './config'
 import ProviderFactory from './provider-factory'
-import { parseAxiosProxy } from './utils'
+import { print, parseAxiosProxy } from './utils'
 
 const app: express.Application = express()
 
@@ -35,19 +36,25 @@ export function api(options: ApiOptions) {
   ))
 
   app.get('/', (req, res) => {
+    print(req.path, 'Hello World')
+
     res.json({ Hello: 'World' })
   })
 
   app.get('/subgroup', async (req, res) => {
-    res.json({
-      Subgroups: await Provider.getSubgroups(),
-    })
+    const Subgroups = await Provider.getSubgroups()
+
+    print(req.path, debug ? Subgroups : undefined)
+
+    res.json({ Subgroups })
   })
 
   app.get('/type', async (req, res) => {
-    res.json({
-      Types: await Provider.getTypes(),
-    })
+    const Types = await Provider.getTypes()
+
+    print(req.path, debug ? Types : undefined)
+
+    res.json({ Types })
   })
 
   app.get('/list', async (req, res) => {
@@ -56,20 +63,34 @@ export function api(options: ApiOptions) {
       return
     }
 
-    const provider = Provider.withList({
+    const query = {
       keyword: req.query.keyword,
       subgroup: req.query.subgroup as string | undefined,
       type: req.query.type as string | undefined,
       r: req.query.r as string | undefined,
-    })
+    }
 
-    res.json({
-      HasMore: await provider.getHasMore(),
-      Resources: await provider.getResources(),
-    })
+    const provider = Provider.withList(query)
+
+    const HasMore = await provider.getHasMore()
+    const Resources = await provider.getResources()
+
+    const queryString = Object
+      .entries(query)
+      .reduce((str, [key, value]) =>
+        `${str}${str ? '&' : ''}${value ? `${key}=${decodeURIComponent(value)}` : ''}`
+      , '')
+    const url = `${req.path}?${queryString}`
+    print(
+      url,
+      `HasMore: ${HasMore}`,
+      debug ? Resources : undefined,
+    )
+
+    res.json({ HasMore, Resources })
   })
 
   app.listen(port, () => {
-    console.log(`DanDanPlay Resource API listening at http://localhost:${port}`)
+    console.log(`${c.blue('DanDanPlay Resource API')} listening at ${c.cyan(`http://localhost:${port}`)}`)
   })
 }
