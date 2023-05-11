@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/wang48372162/dandanplay-resource-api.git"
   },
+  "files": [
+    "dist"
+  ],
   "bin": {
     "dandanplay-resource-api": "./bin/dandanplay-resource-api.js"
   },
