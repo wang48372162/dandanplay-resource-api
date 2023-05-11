@@ -15,7 +15,7 @@ export interface ApiOptions {
   proxyHttps: boolean
 }
 
-export async function api(options: ApiOptions) {
+export function api(options: ApiOptions) {
   const {
     provider,
     port,
@@ -26,7 +26,7 @@ export async function api(options: ApiOptions) {
     proxyHttps,
   } = options
 
-  const Provider = await ProviderFactory.make(provider)
+  const Provider = ProviderFactory.make(provider)
 
   Provider.setAxiosConfig(axiosConfig)
   Provider.setDebug(debug)

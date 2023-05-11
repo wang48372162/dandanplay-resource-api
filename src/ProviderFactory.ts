@@ -1,14 +1,17 @@
 import { Provider as ProviderContract } from './Contracts/Provider'
 import { provider as defaultProvider } from './Config'
+import DmhyProvider from './Providers/dmhy'
+import DmhyanonekoProvider from './Providers/dmhyanoneko'
 
 class ProviderFactory {
-  static async make(provider?: string): Promise<ProviderContract> {
+  static make(provider?: string): ProviderContract {
     if (typeof provider !== 'string') {
       provider = defaultProvider
     }
 
-    return await import(`./Providers/${provider}`)
-      .then(module => new module.default)
+    if (provider === 'dmhy') return new DmhyProvider()
+    if (provider === 'dmhyanoneko') return new DmhyanonekoProvider()
+    return new DmhyProvider()
   }
 }
 

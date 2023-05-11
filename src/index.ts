@@ -2,8 +2,8 @@ import yargs from 'yargs'
 import { api } from './Api'
 import { provider, port } from './Config'
 
-export function run(processArgv: string[]) {
-  const argv = yargs(processArgv.slice(2))
+export async function run(processArgv: string[]) {
+  const argv = await yargs(processArgv.slice(2))
     .option('provider', {
       alias: 'r',
       default: provider,
