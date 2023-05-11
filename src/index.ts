@@ -41,6 +41,7 @@ export async function run(processArgv: string[]) {
       type: 'boolean',
     })
     .help()
+    .alias('v', 'version')
     .alias('h', 'help')
     .argv
 
