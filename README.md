@@ -49,17 +49,17 @@ dandanplay-resource-api --port=3000
 
 ## 開發
 
-用 git 下載專案到本地，安裝完依賴後和啟動 Server：
+用 Git 下載專案到本地，用 Yarn 安裝依賴和啟動 Server：
 
 ```bash
-npm install
-npm run dev
+yarn
+yarn dev
 ```
 
 編譯資產：
 
 ```bash
-npm run build
+yarn build
 ```
 
 ## 參考資料
