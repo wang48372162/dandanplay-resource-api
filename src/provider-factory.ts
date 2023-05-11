@@ -1,7 +1,7 @@
-import { Provider as ProviderContract } from './Contracts/Provider'
-import { provider as defaultProvider } from './Config'
-import DmhyProvider from './Providers/dmhy'
-import DmhyanonekoProvider from './Providers/dmhyanoneko'
+import { Provider as ProviderContract } from './contracts/provider'
+import { provider as defaultProvider } from './config'
+import DmhyProvider from './providers/dmhy'
+import DmhyanonekoProvider from './providers/dmhyanoneko'
 
 class ProviderFactory {
   static make(provider?: string): ProviderContract {

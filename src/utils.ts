@@ -1,6 +1,6 @@
 import axios, { AxiosProxyConfig, AxiosRequestConfig } from 'axios'
 import { load } from 'cheerio'
-import dayjs from './Dayjs'
+import dayjs from './dayjs'
 
 interface CheerioHttpOptions {
   axiosConfig?: AxiosRequestConfig

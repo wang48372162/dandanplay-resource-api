@@ -3,9 +3,9 @@ import {
   Subgroup,
   ResourceType,
   Resource
-} from '../Contracts/Provider'
-import Provider from '../Provider'
-import { cheerioHttp, encodeQueryProp, parseHumanDate } from '../Utils'
+} from '../contracts/provider'
+import Provider from '../provider'
+import { cheerioHttp, encodeQueryProp, parseHumanDate } from '../utils'
 
 export default class dmhy extends Provider implements ProviderContract {
   public baseUrl = 'https://share.dmhy.org'

@@ -1,6 +1,6 @@
 import yargs from 'yargs'
-import { api } from './Api'
-import { provider, port } from './Config'
+import { api } from './api'
+import { provider, port } from './config'
 
 export async function run(processArgv: string[]) {
   const argv = await yargs(processArgv.slice(2))

@@ -1,7 +1,7 @@
 import express from 'express'
-import { axiosConfig } from './Config'
-import ProviderFactory from './ProviderFactory'
-import { parseAxiosProxy } from './Utils'
+import { axiosConfig } from './config'
+import ProviderFactory from './provider-factory'
+import { parseAxiosProxy } from './utils'
 
 const app: express.Application = express()
 
