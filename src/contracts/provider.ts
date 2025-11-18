@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosProxyConfig } from 'axios'
+import type { AxiosRequestConfig, AxiosProxyConfig } from 'axios'
 
 export interface Provider {
   baseUrl: string
@@ -7,29 +7,24 @@ export interface Provider {
   getTypes(): Promise<ResourceType[]>
   getResources(): Promise<Resource[]>
   getHasMore(): Promise<boolean>
-  withList(args: {
-    keyword: string
-    subgroup?: number | string
-    type?: number | string
-    r?: number | string
-  }): Provider
+  withListQuery(args: ProviderListQuery): Provider
 
-  setAxiosConfig(axiosConfig?: AxiosRequestConfig): Provider
+  setAxiosConfig(axiosConfig: AxiosRequestConfig | undefined): Provider
   setDebug(debug: boolean): Provider
-  setProxy(proxyConfig?: AxiosProxyConfig): Provider
+  setProxy(proxyConfig: AxiosProxyConfig | undefined): Provider
 }
 
-export type Subgroup = {
+export interface Subgroup {
   Id: number
   Name: string
 }
 
-export type ResourceType = {
+export interface ResourceType {
   Id: number
   Name: string
 }
 
-export type Resource = {
+export interface Resource {
   Title: string
   TypeId: number
   TypeName: string
@@ -39,4 +34,11 @@ export type Resource = {
   PageUrl: string
   FileSize: string
   PublishDate: string
+}
+
+export interface ProviderListQuery {
+  keyword: string
+  subgroup?: number | string | null
+  type?: number | string | null
+  r?: number | string | null
 }

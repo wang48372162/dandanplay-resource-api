@@ -1,96 +1,93 @@
-import express from 'express'
+import { H3, HTTPError, serve } from 'h3'
 import c from 'picocolors'
 import { axiosConfig } from './config'
-import ProviderFactory from './provider-factory'
+import { createProvider } from './createProvider'
 import { print, parseAxiosProxy } from './utils'
-
-const app: express.Application = express()
 
 export interface ApiOptions {
   provider: string
   port: number
-  debug: boolean
+  debug?: boolean
   proxy?: string
   proxyUsername?: string
   proxyPassword?: string
-  proxyHttps: boolean
+  proxyHttps?: boolean
 }
 
-export function api(options: ApiOptions) {
+export async function api(options: ApiOptions) {
   const {
-    provider,
+    provider: providerId,
     port,
-    debug,
+    debug = false,
     proxy,
     proxyUsername,
     proxyPassword,
     proxyHttps,
   } = options
 
-  const Provider = ProviderFactory.make(provider)
+  const provider = createProvider(providerId)
 
-  Provider.setAxiosConfig(axiosConfig)
-  Provider.setDebug(debug)
-  Provider.setProxy(parseAxiosProxy(
-    proxy, proxyUsername, proxyPassword, proxyHttps
-  ))
+  provider.setAxiosConfig(axiosConfig)
+  provider.setDebug(debug)
+  provider.setProxy(parseAxiosProxy(proxy, proxyUsername, proxyPassword, proxyHttps))
 
-  app.get('/', (req, res) => {
-    print(req.path, 'Hello World')
+  const app = new H3()
 
-    res.json({ Hello: 'World' })
+  app.get('/', () => 'DanDanPlay Resource API')
+
+  app.get('/subgroup', async event => {
+    const Subgroups = await provider.getSubgroups()
+
+    print(event.url.pathname, debug ? Subgroups : undefined)
+
+    return { Subgroups }
   })
 
-  app.get('/subgroup', async (req, res) => {
-    const Subgroups = await Provider.getSubgroups()
+  app.get('/type', async event => {
+    const Types = await provider.getTypes()
 
-    print(req.path, debug ? Subgroups : undefined)
+    print(event.url.pathname, debug ? Types : undefined)
 
-    res.json({ Subgroups })
+    return { Types }
   })
 
-  app.get('/type', async (req, res) => {
-    const Types = await Provider.getTypes()
-
-    print(req.path, debug ? Types : undefined)
-
-    res.json({ Types })
-  })
-
-  app.get('/list', async (req, res) => {
-    if (typeof req.query.keyword !== 'string') {
-      res.sendStatus(404)
-      return
-    }
-
+  app.get('/list', async event => {
     const query = {
-      keyword: req.query.keyword,
-      subgroup: req.query.subgroup as string | undefined,
-      type: req.query.type as string | undefined,
-      r: req.query.r as string | undefined,
+      keyword: event.url.searchParams.get('keyword') as string,
+      subgroup: event.url.searchParams.get('subgroup'),
+      type: event.url.searchParams.get('type'),
+      r: event.url.searchParams.get('r'),
     }
 
-    const provider = Provider.withList(query)
+    if (!query.keyword) {
+      throw HTTPError.status(400, 'bad request', {
+        message: 'missing keyword parameter',
+      })
+    }
+
+    provider.withListQuery(query)
 
     const HasMore = await provider.getHasMore()
     const Resources = await provider.getResources()
 
     const queryString = Object
       .entries(query)
-      .reduce((str, [key, value]) =>
-        `${str}${str ? '&' : ''}${value ? `${key}=${decodeURIComponent(value)}` : ''}`
-      , '')
-    const url = `${req.path}?${queryString}`
-    print(
-      url,
-      `HasMore: ${HasMore}`,
-      debug ? Resources : undefined,
-    )
+      .filter(([_, value]) => !!value)
+      .map(([key, value]) => `${key}=${decodeURIComponent(value || '')}`)
+      .join('&')
 
-    res.json({ HasMore, Resources })
+    const url = `${event.url.pathname}?${queryString}`
+    print(url, `HasMore: ${HasMore}`, debug ? Resources : undefined)
+
+    return { HasMore, Resources }
   })
 
-  app.listen(port, () => {
-    console.log(`${c.blue('DanDanPlay Resource API')} listening at ${c.cyan(`http://localhost:${port}`)}`)
+  const server = serve(app, {
+    port,
+    silent: true,
   })
+
+  await server.ready()
+
+  console.log(`${c.blue('DanDanPlay Resource API')} listening at ${c.cyan(`http://localhost:${port}`)}`)
 }

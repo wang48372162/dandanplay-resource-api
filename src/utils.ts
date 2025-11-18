@@ -1,4 +1,5 @@
-import axios, { AxiosProxyConfig, AxiosRequestConfig } from 'axios'
+import type { AxiosProxyConfig, AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 import { load } from 'cheerio'
 import c from 'picocolors'
 import dayjs from './dayjs'
@@ -24,7 +25,9 @@ export async function cheerioHttp(url: string, options: CheerioHttpOptions = {})
     const { data } = await axios.get<string>(url, axiosConfig)
     html = data
 
-    if (debug) print(c.blue('HTML content:'), html)
+    if (debug) {
+      print(c.blue('HTML content:'), html)
+    }
   } catch (error) {
     console.error(error)
   }
@@ -51,23 +54,11 @@ export function parseAxiosProxy(
     port = parseInt(port)
   }
 
-  if (typeof username === 'string' &&
-      typeof password === 'string'
-  ) {
+  if (typeof username === 'string' && typeof password === 'string') {
     auth = { username, password }
   }
 
   return { host, port, auth, protocol }
-}
-
-export function encodeQueryProp(value?: number | string): string {
-  if (typeof value === 'undefined') {
-    value = ''
-  } else if (typeof value === 'number') {
-    value = value.toString()
-  }
-
-  return encodeURIComponent(value)
 }
 
 export function parseHumanDate(date: string) {

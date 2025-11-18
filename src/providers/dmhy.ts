@@ -1,13 +1,8 @@
-import {
-  Provider as ProviderContract,
-  Subgroup,
-  ResourceType,
-  Resource
-} from '../contracts/provider'
-import Provider from '../provider'
-import { cheerioHttp, encodeQueryProp, parseHumanDate } from '../utils'
+import type { Provider, Subgroup, ResourceType, Resource, ProviderListQuery } from '../contracts/provider'
+import { BaseProvider } from './base'
+import { cheerioHttp, parseHumanDate } from '../utils'
 
-export default class dmhy extends Provider implements ProviderContract {
+export class DmhyProvider extends BaseProvider implements Provider {
   public baseUrl = 'https://share.dmhy.org'
   public typeAndSubgroupUrl = () => `${this.baseUrl}/topics/advanced-search?team_id=0&sort_id=0&orderby=`
   public listUrl = (keyword: string, type: string, subgroup: string) => `${this.baseUrl}/topics/list/page/1?keyword=${keyword}&sort_id=${type}&team_id=${subgroup}&order=date-desc`
@@ -84,19 +79,14 @@ export default class dmhy extends Provider implements ProviderContract {
       debug: this.debug,
     })
 
-    return $(`div.nav_title > a:contains('下一頁')`).length > 0
+    return $("div.nav_title > a:contains('下一頁')").length > 0
   }
 
-  withList({ keyword, subgroup, type, r }: {
-    keyword: string
-    subgroup?: number | string
-    type?: number | string
-    r?: number | string
-  }): ProviderContract {
+  withListQuery({ keyword, subgroup, type, r }: ProviderListQuery): Provider {
     this.fullListUrlProp = this.listUrl(
       encodeURIComponent(keyword),
-      encodeQueryProp(type),
-      encodeQueryProp(subgroup)
+      encodeURIComponent(type || ''),
+      encodeURIComponent(subgroup || '')
     )
 
     return this
@@ -104,7 +94,7 @@ export default class dmhy extends Provider implements ProviderContract {
 
   protected fullListUrl(): string {
     if (typeof this.fullListUrlProp === 'undefined') {
-      throw new Error('Forgot to call the withList() method')
+      throw new Error('Must call the withListQuery() method before calling fullListUrl()')
     }
 
     return this.fullListUrlProp

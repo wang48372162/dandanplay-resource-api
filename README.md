@@ -33,7 +33,7 @@ dandanplay-resource-api
 
 ### Provider
 
-指定其他資料來源 (目前只支援動漫花園)：
+指定其他資料來源：
 
 ```bash
 dandanplay-resource-api --provider=dmhy
@@ -49,7 +49,7 @@ dandanplay-resource-api --port=3000
 
 ## 開發
 
-用 Git 下載專案到本地，用 Yarn 安裝依賴和啟動 Server：
+安裝依賴和啟動 Dev Server：
 
 ```bash
 yarn

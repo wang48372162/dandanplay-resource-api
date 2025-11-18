@@ -1,10 +1,10 @@
-import { AxiosRequestConfig, AxiosProxyConfig } from 'axios'
+import type { AxiosRequestConfig, AxiosProxyConfig } from 'axios'
 
-export default abstract class Provider {
+export abstract class BaseProvider {
   protected debug: boolean = false
   protected axiosConfig?: AxiosRequestConfig
 
-  setAxiosConfig(axiosConfig?: AxiosRequestConfig) {
+  setAxiosConfig(axiosConfig: AxiosRequestConfig | undefined) {
     this.axiosConfig = axiosConfig
     return this
   }
@@ -14,7 +14,7 @@ export default abstract class Provider {
     return this
   }
 
-  setProxy(proxyConfig?: AxiosProxyConfig) {
+  setProxy(proxyConfig: AxiosProxyConfig | undefined) {
     if (typeof this.axiosConfig !== 'object') {
       this.axiosConfig = {}
     }

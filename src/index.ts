@@ -1,57 +1,23 @@
-import yargs from 'yargs'
+import { cac } from 'cac'
 import { api } from './api'
 import { provider, port } from './config'
+import { version } from '../package.json'
 
-export async function run(processArgv: string[]) {
-  const argv = await yargs(processArgv.slice(2))
-    .option('provider', {
-      alias: 'r',
-      default: provider,
-      describe: 'set provider',
-      type: 'string',
-    })
-    .option('port', {
-      alias: 'p',
-      default: port,
-      describe: 'set the server listening port number',
-      type: 'number',
-    })
-    .option('debug', {
-      alias: 'd',
-      default: false,
-      describe: 'print debug logs',
-      type: 'boolean',
-    })
-    .option('proxy', {
-      alias: 'x',
-      describe: 'set proxy host, ex: "localhost:8585"',
-      type: 'string',
-    })
-    .option('proxyUsername', {
-      describe: 'set proxy authencation username',
-      type: 'string',
-    })
-    .option('proxyPassword', {
-      describe: 'set proxy authencation password',
-      type: 'string',
-    })
-    .option('proxyHttps', {
-      default: false,
-      describe: 'set proxy prototal is HTTPS',
-      type: 'boolean',
-    })
-    .help()
-    .alias('v', 'version')
-    .alias('h', 'help')
-    .argv
+const cli = cac('dandanplay-resource-api')
 
-  api({
-    provider: argv.provider,
-    port: argv.port,
-    debug: argv.debug,
-    proxy: argv.proxy,
-    proxyUsername: argv.proxyUsername,
-    proxyPassword: argv.proxyPassword,
-    proxyHttps: argv.proxyHttps,
+cli
+  .command('')
+  .option('--provider <provider>', 'Resource provider to use for fetching content', { default: provider })
+  .option('-p, --port <port>', 'Port number for the server to listen on', { default: port })
+  .option('--debug', 'Enable debug logging for troubleshooting', { default: false })
+  .option('--proxy <proxy>', 'Proxy server address (format: host:port)')
+  .option('--proxy-username <proxyUsername>', 'Username for proxy authentication')
+  .option('--proxy-password <proxyPassword>', 'Password for proxy authentication')
+  .option('--proxy-https', 'Use HTTPS protocol for proxy connection', { default: false })
+  .action(options => {
+    api(options)
   })
-}
+
+cli.help()
+cli.version(version)
+cli.parse()
