@@ -1,7 +1,7 @@
 {
   "name": "dandanplay-resource-api",
   "type": "module",
-  "version": "0.7.3",
+  "version": "1.0.0",
   "description": "The DanDanPlay Resource API Server",
   "author": "wang48372162",
   "license": "MIT",
